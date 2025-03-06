@@ -55,6 +55,7 @@ public class ClimateAgricultureProcessor {
                 .orElse(0.0);
     }
 
+    // Insights for a later part 2. Can ignore for now
     /**
      * finds the country with the highest crop yield
      */

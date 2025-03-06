@@ -10,8 +10,7 @@ import java.util.List;
 
 public class ClimateAgricultureConsole {
     public static void main(String[] args) {
-        // Make sure to replace with the actual path to your CSV file
-        String filePath = "\"C:\\Users\\kendr\\Downloads\\climate_change_impact_on_agriculture_2024.csv\"";
+        String filePath = "./csv_file/climate_change_impact_on_agriculture_2024.csv";
 
         // read data from file
         List<ClimateAgricultureEntry> agricultureData =
@@ -34,12 +33,5 @@ public class ClimateAgricultureConsole {
 
         // 3. Display total number of entries
         processor.printTotalEntries();
-
-        // Additional analysis
-        System.out.println("\nAdditional Insights:");
-        System.out.printf("Average Crop Yield: %.2f tons/hectare%n",
-                processor.calculateAverageCropYield());
-        System.out.println("Country with Highest Crop Yield: " +
-                processor.findHighestYieldCountry());
     }
 }

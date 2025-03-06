@@ -23,7 +23,7 @@ public class ClimateAgricultureEntry {
     private double irrigation;
 
     /**
-     * Constructor for ClimateAgricultureEntry
+     * ClimateAgricultureEntry data meaning
      *
      * @param year Year of the agricultural data
      * @param country Country where the data was collected
