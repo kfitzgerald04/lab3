@@ -9,7 +9,7 @@
  */
 package org.climatechange.agriculture;
 
-public class ClimateAgricultureEntry {
+public class CAEntry {
     // attributes based on my dataset
     private int year;
     private String country;
@@ -37,11 +37,11 @@ public class ClimateAgricultureEntry {
      * @param irrigation Irrigation amount
      */
 
-    public ClimateAgricultureEntry(int year, String country, String region,
-                                   String cropType, double averageTemperature,
-                                   double totalPrecipitation, double co2Emissions,
-                                   double cropYield, int extremeWeatherEvents,
-                                   double irrigation)
+    public CAEntry(int year, String country, String region,
+                   String cropType, double averageTemperature,
+                   double totalPrecipitation, double co2Emissions,
+                   double cropYield, int extremeWeatherEvents,
+                   double irrigation)
     {
         this.year = year;
         this.country = country;

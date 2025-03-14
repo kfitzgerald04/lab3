@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class ClimateAgricultureReader {
+public class CA_FileReader {
     
-    public static List<ClimateAgricultureEntry> readDataFromFile(String filePath) {
-        List<ClimateAgricultureEntry> agricultureData = new ArrayList<>();
+    public static List<CAEntry> readDataFromFile(String filePath) {
+        List<CAEntry> agricultureData = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             // read and print header line for verification
@@ -26,7 +26,7 @@ public class ClimateAgricultureReader {
 
             // read and parse data lines
             agricultureData = br.lines()
-                    .map(ClimateAgricultureReader::parseDataLine)
+                    .map(CA_FileReader::parseDataLine)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
@@ -57,9 +57,9 @@ public class ClimateAgricultureReader {
 
     
      // parses a single line of CSV data into a ClimateAgricultureEntry object
-    private static ClimateAgricultureEntry parseDataLine(String line) {
+    private static CAEntry parseDataLine(String line) {
         String[] parts = line.split(",");
-        return new ClimateAgricultureEntry(
+        return new CAEntry(
                 parseInt(parts[0], 0),         // Year
                 parts[1],                                  // Country
                 parts[2],                                 // Region

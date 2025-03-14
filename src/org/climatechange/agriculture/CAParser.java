@@ -9,12 +9,12 @@ package org.climatechange.agriculture;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClimateAgricultureProcessor {
-    private List<ClimateAgricultureEntry> agricultureData;
+public class CAParser {
+    private List<CAEntry> agricultureData;
 
 
      // initializes the processor with a list of agriculture entries
-    public ClimateAgricultureProcessor(List<ClimateAgricultureEntry> agricultureData) {
+    public CAParser(List<CAEntry> agricultureData) {
         this.agricultureData = agricultureData;
     }
 
@@ -50,7 +50,7 @@ public class ClimateAgricultureProcessor {
      */
     public double calculateAverageCropYield() {
         return agricultureData.stream()
-                .mapToDouble(ClimateAgricultureEntry::getCropYield)
+                .mapToDouble(CAEntry::getCropYield)
                 .average()
                 .orElse(0.0);
     }
@@ -62,14 +62,14 @@ public class ClimateAgricultureProcessor {
     public String findHighestYieldCountry() {
         return agricultureData.stream()
                 .max((a, b) -> Double.compare(a.getCropYield(), b.getCropYield()))
-                .map(ClimateAgricultureEntry::getCountry)
+                .map(CAEntry::getCountry)
                 .orElse("No data");
     }
 
     /**
      * filters entries by a specific crop type
      */
-    public List<ClimateAgricultureEntry> filterByCropType(String cropType) {
+    public List<CAEntry> filterByCropType(String cropType) {
         return agricultureData.stream()
                 .filter(entry -> entry.getCropType().equalsIgnoreCase(cropType))
                 .collect(Collectors.toList());
