@@ -48,7 +48,7 @@ public class CA_GUI extends JFrame {
         return panel;
     }
 
-    // helper method to create dropdown filters dynamically
+    // create dropdown filters dynamically
     private JComboBox<String> createFilter(JPanel panel, String label, String defaultItem, java.util.function.Function<CAEntry, String> extractor) {
         JComboBox<String> comboBox = new JComboBox<>();
         comboBox.addItem(defaultItem);
@@ -157,6 +157,6 @@ public class CA_GUI extends JFrame {
 
     // main method to start the application
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CA_GUI(CA_FileReader.readDataFromFile("./csv_file/climate_data.csv")).setVisible(true));
+        SwingUtilities.invokeLater(() -> new CA_GUI(CA_FileReader.readDataFromFile("./csv_file/climate_change_impact_on_agriculture_2024.csv")).setVisible(true));
     }
 }

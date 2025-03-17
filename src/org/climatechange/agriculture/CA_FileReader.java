@@ -35,41 +35,59 @@ public class CA_FileReader {
         return agricultureData;
     }
 
-    
-     //parse a string to integer, returning a default value if parsing fails.
-    private static int parseInt(String value, int defaultValue) {
+
+    // parse a string to integer or double, returning a default value if parsing fails
+    private static <T> T parseValue(String value, T defaultValue, ValueParser<T> parser) {
+        if (value == null || value.isEmpty()) {
+            return defaultValue;
+        }
         try {
-            return value == null || value.isEmpty() ? defaultValue : Integer.parseInt(value);
+            return parser.parse(value);
         } catch (NumberFormatException e) {
             return defaultValue;
         }
     }
 
-    
-     //parse a string to double, returning a default value if parsing fails.
-    private static double parseDouble(String value, double defaultValue) {
-        try {
-            return value == null || value.isEmpty() ? defaultValue : Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
+    // functional interface for parsing values (using pt1 feedback)
+    @FunctionalInterface
+    private interface ValueParser<T> {
+        T parse(String value) throws NumberFormatException;
     }
 
-    
-     // parses a single line of CSV data into a ClimateAgricultureEntry object
-    private static CAEntry parseDataLine(String line) {
-        String[] parts = line.split(",");
+    // parses a single line of CSV data into a CAEntry object
+    private static CAEntry parseDataLine(String csvLine) {
+        String[] climateDataFields = csvLine.split(",");
+
+        // ensure the array has enough elements
+        if (climateDataFields.length < 10) {
+            System.err.println("Warning: Incomplete climate data record: " + csvLine);
+            return null;
+        }
+
+        // data fields from the CSV file
+        String yearField = climateDataFields[0];
+        String countryField = climateDataFields[1];
+        String regionField = climateDataFields[2];
+        String cropTypeField = climateDataFields[3];
+        String temperatureField = climateDataFields[4];
+        String precipitationField = climateDataFields[5];
+        String co2EmissionsField = climateDataFields[6];
+        String cropYieldField = climateDataFields[7];
+        String extremeWeatherField = climateDataFields[8];
+        String irrigationField = climateDataFields[9];
+
+        // create and return a new CAEntry object
         return new CAEntry(
-                parseInt(parts[0], 0),         // Year
-                parts[1],                                  // Country
-                parts[2],                                 // Region
-                parts[3],                                // Crop Type
-                parseDouble(parts[4], 0.0),// Average Temperature
-                parseDouble(parts[5], 0.0),// Total Precipitation
-                parseDouble(parts[6], 0.0),// CO2 Emissions
-                parseDouble(parts[7], 0.0),// Crop Yield
-                parseInt(parts[8], 0),     // Extreme Weather Events
-                parseDouble(parts[9], 0.0) // Irrigation
+                parseValue(yearField, 0, Integer::parseInt),                     // Year
+                countryField,                                                                 // Country
+                regionField,                                                                 // Region
+                cropTypeField,                                                             // Crop Type
+                parseValue(temperatureField, 0.0, Double::parseDouble),      // Average Temperature
+                parseValue(precipitationField, 0.0, Double::parseDouble),    // Total Precipitation
+                parseValue(co2EmissionsField, 0.0, Double::parseDouble),     // CO2 Emissions
+                parseValue(cropYieldField, 0.0, Double::parseDouble),        // Crop Yield
+                parseValue(extremeWeatherField, 0, Integer::parseInt),       // Extreme Weather Events
+                parseValue(irrigationField, 0.0, Double::parseDouble)        // Irrigation
         );
     }
 }
